@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+		<title>Lab 3 - Bài 3</title>
+		<style type="text/css">
+			table, th, td {
+  				border-collapse: collapse;
+  				margin-top: 10px;
+  				border: 1px solid black;
+			}
+
+			th, td {
+			  padding: 10px;
+			  width: auto;
+			}
+
+			th {
+				text-align: center;
+			}
+
+			td {
+				width: auto;
+			}
+
+			img {
+				float: left;
+				width: 150px;
+				height: 150px;
+			}
+
+			button {
+			  border: none;
+			  color: white;
+			  padding: 8px 20px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: 16px;
+			  margin: 4px 2px;
+			  cursor: pointer;
+			  border-radius: 5px;
+			  background-color: blue;
+			}
+			
+			.main-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: #168abe;
+			}			
+
+			.main-menu li {
+			  	display: inline-block;
+			  	border-right:1px solid #49a3cc;
+			}
+
+			.main-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.main-menu li a {
+			  	display: block;
+			  	color: white;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.main-menu li a:hover:not(.active) {
+				background-color: #0e6891;
+			}
+			
+
+			.dropdown-menu {
+				  display: none;
+				  position: absolute;
+				  background-color: white;
+				  min-width: 160px;
+				  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				  z-index: 1;
+			}
+
+
+			.dropdown-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: white;
+			}	
+
+			.dropdown-menu li {
+			  	display: block;
+			}
+
+			.dropdown-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.dropdown-menu li a {
+			  	color: black;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.dropdown-menu a:hover:not(.active) {
+			  background-color: #111;
+			}
+
+			#container {
+			 	  display: none; /* Hidden by default */
+				  position: fixed; /* Stay in place */
+				  z-index: 1; /* Sit on top */
+				  left: 0;
+				  top: 0;
+				  width: 100%; /* Full width */
+				  height: 100%; /* Full height */
+				  overflow: auto; /* Enable scroll if needed */
+				  background-color: #fefefe;
+				  padding-top: 60px;
+			 }
+
+			#form_register {
+				  background-color: #fefefe;/* 5% from the top, 15% from the bottom and centered */
+				  width: 100%;
+				  height: 100%;
+				  margin-left: 300px;  /* Could be more or less, depending on screen size */
+			}
+
+			span {
+				color: red;
+
+			}
+
+			input[type=text], select {
+			  width: 700px;
+			  padding: 7px 15px;
+			  margin: 8px 0;
+			  display: inline-block;
+			  border: 1.5px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			}
+
+			input[type=submit] {
+			  width: 100px;
+			  background-color: white;
+			  color: black;
+			  padding: 14px 20px;
+			  margin: 8px 0;
+			  border-radius: 4px;
+			  cursor: pointer;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+		<nav id="main-nav">
+		 <!-- Sample menu definition -->
+		 <div class="main-menu">
+			 <ul class="ul-main-menu">
+				 <li><a href="https://uit.edu.vn">Home</a></li>
+				 <li><a href="https://uit.edu.vn">About</a></li>
+				 <li><a href="https://uit.edu.vn">Download</a></li>
+				 <li><a href="https://uit.edu.vn">Support</a></li>
+				 <li><a href="https://uit.edu.vn">Docs</a></li>
+				 <li id="dropdown">
+			 		<a href="#">Sub test</a>
+			 		<div class="dropdown-menu">
+			 			<ul class="ul-dropdown-menu">
+				 			 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#" class="disabled">Disabled menu item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">more...</a>
+						</ul>
+			 		</div>
+				 </li>
+				 <li><a href="#">Mega menu</a></li>
+			</ul>
+		</div>
+		</nav>
+
+		<h4>Product</h4>
+
+		<h2 id="headerList">Danh sách sản phẩm</h2>
+
+		<button id="createNewBtn">Create New</button>
+		
+		<table id="myTable" style="width: 100%">
+		  <tr>
+		    <th>STT</th>
+		    <th>Tên sán phẩm</th>
+		    <th>Giá</th>
+		    <th style="width: 8%">Tình trạng</th>
+		    <th>Thương hiệu</th>
+		    <th>Thao tác</th>
+		  </tr>	
+		</table>
+
+
+		<div id="container">
+			<h1 id="header">Thêm Sản Phẩm</h1>
+			<h2>Product</h2>
+			<hr/>
+	        <form method="post" action="" id="form_register">
+	            <table>
+	                <tr>
+	                    <td>ID</td>
+	                    <td>
+	                        <input type="text" name="id" id="id" value="" />
+	                        <span id="id_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Title</td>
+	                    <td>
+	                        <input type="text" name="title" id="title" value="" />
+	                        <span id="phone_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Summary</td>
+	                    <td>
+	                        <input type="text" name="summary" id="summary" value="" />
+	                        <span id="summary_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Thương hiệu</td>
+	                    <td>
+	                        <input type="text" name="producer" id="producer" value="" />
+	                        <span id="priced_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>ImageUrl</td>
+	                    <td>
+	                        <input type="file" name="avatar" id="avatar" value="" />
+	                        <span id="avatar_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Price</td>
+	                    <td>
+	                        <input type="text" name="price" id="price" value="" />
+	                        <span id="priced_error"></span>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Number</td>
+	                    <td>
+	                        <input type="text" name="number" id="number" value=""  />
+	                        <span id="number_error"></span>
+	                    </td>
+	                </tr>
+	                <tr id ="trButton">
+	                    <td></td>
+	                    <td>
+	                        <button id="creeateBtn">Create</button>
+	                    </td>
+	                </tr>
+	            </table>
+	        </form>
+        </div>
+	
+		<script type="text/javascript">
+			$(document).ready(function(){
+			// GET all product in db
+			$.ajax({
+		    url: "http://localhost:3000/product/",
+		    headers: {
+				'Content-Type': 'application/json'
+			},
+		    type:'GET',
+		    datatype:'json',
+		    success: function(result) {
+    			console.log(result);
+		    	$.each(result,function(index,item){ 
+		    		var url = item.avatar;
+		    		url = url.replace(/\\/g,"/");
+		    		// Thêm product vào table
+			        $('#myTable').append(
+			            "<tr id='tr" + item.id + "'>" +
+			            "<td>" + item.id + "</td>" +
+			            "<td><img src='http://localhost:3000/" + url + "' alt='Computer'><p style='color:#c71313'><b>"+ item.title + "</b></p>"+ url +"</td>"+
+			            "<td><b>" + item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")   + " VNĐ" + "</b></td>" +
+			            "<td>" + item.number + "<br/>" + "<p id = 'statusProduct" + item.id + "'><b>(" + item.status + ")</b></p>" + "</td>" +
+			            "<td>" + item.producer + "</td>" +
+			            "<td><button  id='btnEdit" + item.id + "' value ='" + item.id + "'>Edit</button>" +
+			             	"<button  id='btnDel" + item.id + "' value ='" + item.id + "'>Delete</button>" +
+			             	"<button  id='btnDetails" + item.id + "' value ='" + item.id + "'>Details</button></td>" +
+			            "</tr>"
+			        );
+			        // Các sản phẩm không còn hàng
+			        $("#btnDel" + item.id).css({"background-color" : "red"});
+			        $("#btnDetails" + item.id).css({"background-color" : "green"});
+			        $("#statusProduct" + item.id).css({"color" : "red"});
+			        if ( item.number == "0") {
+			        	//Set status thành đỏ
+					    $("#statusProduct" + item.id).css({"color" : "red"});
+					}
+
+					$("#btnDel" + item.id).click(function(){
+						$('#tr' + item.id).remove();
+					});
+
+					$("#btnDetails" + item.id).click(function(){
+						$('#container').css({"display" : "block"});
+            			$("#header").text("Thông tin sản phẩm");
+            			$("#creeateBtn").hide();
+            			$('#trButton').remove();
+            			$('input[name="id"]').val(item.id);
+            			$('input[name="title"]').val(item.title);
+						$('input[name="number"]').val(item.number);
+						$('input[name="price"]').val(item.price);
+		    			$('input[name="summary"]').val(item.summary);
+						$('input[name="producer"]').val(item.producer);
+						$('input[name="avatar"]').attr({"type" : "text"});
+						$('input[name="avatar"]').val(item.avatar);
+
+
+						$("input").prop('disabled', true);
+					});
+
+					// Edit sản phẩm
+					$("#btnEdit" + item.id).click(function(){
+						//Hiện form edit product, cập nhật text
+            			$('#container').css({"display" : "block"});
+            			$("#header").text("Cập nhật sản phẩm");
+            			$("#creeateBtn").text("Edit");
+            			$('input[name="id"]').val(item.id);
+            			$('input[name="title"]').val(item.title);
+						$('input[name="number"]').val(item.number);
+						$('input[name="price"]').val(item.price);
+		    			$('input[name="summary"]').val(item.summary);
+						$('input[name="producer"]').val(item.producer);
+
+            			$('#creeateBtn').click(function(event){
+					    	event.preventDefault(); 
+						    var profiles ={ id : $('input[name="id"]').val(),
+			    					 		title : $('input[name="title"]').val(),
+			    					 		number : $('input[name="number"]').val(),
+			    					 		price : $('input[name="price"]').val(),
+			    					 		summary : $('input[name="summary"]').val(),
+			    							producer : $('input[name="producer"]').val(),
+			    					 		avatar : $('#avatar')[0].files[0]
+			    			};
+					    	var urlEdit = "http://localhost:3000/product/" + item.id;
+						    $.ajax({
+						    type: "PUT",
+						    url: urlEdit,
+						    data: JSON.stringify(profiles),
+						    contentType: "application/json",
+			            	dataType: "json",
+						    success: function(data) {
+						    	$('#container').css({"display" : "none"});
+						        alert('Edit thành công'); 
+						    },
+						    error: function(jqXHR, textStatus, err) {
+						        alert('Edit không thành công'); 
+						    }
+					    	});
+						});
+					});
+
+			    });
+			} 
+			});
+
+
+
+		    $( '#dropdown' ).hover(
+		        function(){
+		            $(this).children('.dropdown-menu').slideDown(200);
+		        },
+		        function(){
+		            $(this).children('.dropdown-menu').slideUp(200);
+		        }
+		    );
+		    // Thêm sản phẩm vào db
+		    $('#createNewBtn').click(function(){
+		    	// Hiện form để nhập thông tin
+		    	$('#container').css({"display" : "block"});
+
+
+			    $('#creeateBtn').click(function(event){
+			    	event.preventDefault(); 
+				    var formData = new FormData();
+			    	formData.append("id" , $('input[name="id"]').val());
+			    	formData.append("title" , $('input[name="title"]').val());
+			    	formData.append("number" , $('input[name="number"]').val());
+			    	formData.append("price" , $('input[name="price"]').val());
+			    	formData.append("summary" , $('input[name="summary"]').val());
+			    	formData.append("producer" , $('input[name="producer"]').val());
+			    	formData.append("avatar", $('#avatar')[0].files[0]);
+
+				    $.ajax({
+				    url: "http://localhost:3000/product/add",
+			        contentType: false,
+			        processData: false,
+			        async: false,
+			        type: "POST",
+			        data: formData,
+				    success: function(response){ 
+                        if(response != 0){ 
+                           alert('Add thành công'); 
+                        } 
+                        else{ 
+                            alert('Add không thành công'); 
+                        } 
+                    },
+			    	});
+				});
+		    });
+			});    
+			</script>
+
+		</script>
+	</body>
+</html>

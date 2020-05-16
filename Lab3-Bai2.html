@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+		<title>Lab 3 - Bài 1</title>
+		<style type="text/css">
+
+			table, th, td {
+  				border-collapse: collapse;
+  				margin-top: 10px;			}
+
+			th, td {
+			  padding: 20px;
+			  width: auto;
+			}
+
+			th {
+				text-align: center;
+			}
+
+			td {
+				width: auto;
+			}
+
+			img {
+				float: left;
+				width: 150px;
+				height: 150px;
+			}
+			.main-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: #168abe;
+			}			
+
+			.main-menu li {
+			  	display: inline-block;
+			  	border-right:1px solid #49a3cc;
+			}
+
+			.main-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.main-menu li a {
+			  	display: block;
+			  	color: white;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.main-menu li a:hover:not(.active) {
+				background-color: #0e6891;
+			}
+			
+
+			.dropdown-menu {
+				  display: none;
+				  position: absolute;
+				  background-color: white;
+				  min-width: 160px;
+				  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				  z-index: 1;
+			}
+
+
+			.dropdown-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: white;
+			}	
+
+			.dropdown-menu li {
+			  	display: block;
+			}
+
+			.dropdown-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.dropdown-menu li a {
+			  	color: black;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.dropdown-menu a:hover:not(.active) {
+			  background-color: #111;
+			}
+
+			.container {
+				float: left;
+				width: 40%;
+				padding-left: 40px;
+			}
+			
+			.container2 {
+				margin-left: 650px;
+				align-items: center;
+				text-align:center
+				justify-content: center;
+			}
+
+			input[type=text], select {
+			  width: 400px;
+			  padding: 7px 15px;
+			  margin: 8px 0;
+			  display: inline-block;
+			  border: 1.5px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<nav id="main-nav">
+		 <!-- Sample menu definition -->
+		 <div class="main-menu">
+			 <ul class="ul-main-menu">
+				 <li><a href="https://uit.edu.vn">Home</a></li>
+				 <li><a href="https://uit.edu.vn">About</a></li>
+				 <li><a href="https://uit.edu.vn">Download</a></li>
+				 <li><a href="https://uit.edu.vn">Support</a></li>
+				 <li><a href="https://uit.edu.vn">Docs</a></li>
+				 <li id="dropdown">
+			 		<a href="#">Sub test</a>
+			 		<div class="dropdown-menu">
+			 			<ul class="ul-dropdown-menu">
+				 			 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#" class="disabled">Disabled menu item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">more...</a>
+						</ul>
+			 		</div>
+				 </li>
+				 <li><a href="#">Mega menu</a></li>
+			</ul>
+		</div>
+		</nav>
+
+		<div class="container">
+			<h1>Thông tin liên hệ</h1>
+			<p>Trường Đại học Công nghệ Thông tin ĐHQG-HCM</p>
+			<p>KP6, Thủ Đức, Hồ Chí Minh, Việt Nam</p>
+			<p>P: (028) 37252002</p>
+
+			<p><b>Email:</b> <a href="uit.edu.vn">info@uit.edu.vn</a></p>
+			<p><b>Website:</b> <a href="uit.edu.vn">uit.edu.vn</a></p>
+
+			<iframe
+			src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3918.2324288146738!2d106.801
+			61941411598!3d10.86991839225808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s
+			!4v1588878290282!5m2!1svi!2s" width="500" height="350" frameborder="0" style="border:0;"
+			allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		</div>
+
+		<div class="container2">
+			<h1>Thông tin liên hệ</h1>
+
+			<form method="post" action="" id="form_register">
+	            <table>
+	                <tr>
+	                    <td>Họ tên</td>
+	                    <td>
+	                        <input type="text" name="hoten" id="hoten" value="" />
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Email</td>
+	                    <td>
+	                        <input type="text" name="email" id="email" value="" />
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Số điện thoại</td>
+	                    <td>
+	                        <input type="text" name="sdt" id="sdt" value="" />
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>Thông điệp</td>
+	                    <td>
+	                        <input style="height: 200px" type="text" name="thongdiep" id="thongdiep" value="" />
+	                    </td>
+	                </tr>
+	                <tr id ="trButton">
+	                    <td></td>
+	                    <td>
+	                        <button id="creeateBtn">Gởi</button>
+	                    </td>
+	                </tr>
+	            </table>
+	        </form>
+		</div>
+	
+			<script type="text/javascript">
+			$(document).ready(function(){
+            			$('#creeateBtn').click(function(event){
+					    	event.preventDefault(); 
+						    var profiles ={ hoten : $('input[name="hoten"]').val(),
+			    					 		email : $('input[name="email"]').val(),
+			    					 		sdt : $('input[name="sdt"]').val(),
+			    					 		thongdiep : $('input[name="thongdiep"]').val(),
+
+			    			};
+						    $.ajax({
+						    type: "POST",
+						    url: "http://localhost:3000/file/postfile",
+						    data: JSON.stringify(profiles),
+						    contentType: "application/json",
+			            	dataType: "json",
+						    success: function(data) {
+						        alert('Gởi thành công'); 
+						    },
+						    error: function(jqXHR, textStatus, err) {
+						        alert('Gởi không thành công'); 
+						    }
+					    	});
+						});
+
+				$( '#dropdown' ).hover(
+		        function(){
+		            $(this).children('.dropdown-menu').slideDown(200);
+		        },
+		        function(){
+		            $(this).children('.dropdown-menu').slideUp(200);
+		        }
+		    	);
+
+			});    
+			</script>
+
+		</script>
+	</body>
+</html>

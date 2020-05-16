@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+		<title>Lab 3 - Bài 1</title>
+		<style type="text/css">
+			table, th, td {
+			    border: 1px solid black;
+  				border-collapse: collapse;
+  				margin-top: 10px;
+			}
+
+			th, td {
+			  padding: 10px;
+			  width: auto;
+			}
+
+			th {
+				text-align: center;
+			}
+
+			td {
+				width: auto;
+			}
+
+			img {
+				float: left;
+				width: 150px;
+				height: 150px;
+			}
+
+			button {
+			  border: none;
+			  color: white;
+			  padding: 15px 32px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: 16px;
+			  margin: 4px 2px;
+			  cursor: pointer;
+			  border-radius: 10px;
+			  background-color: blue;
+			}
+			
+			.main-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: #168abe;
+			}			
+
+			.main-menu li {
+			  	display: inline-block;
+			  	border-right:1px solid #49a3cc;
+			}
+
+			.main-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.main-menu li a {
+			  	display: block;
+			  	color: white;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.main-menu li a:hover:not(.active) {
+				background-color: #0e6891;
+			}
+			
+
+			.dropdown-menu {
+				  display: none;
+				  position: absolute;
+				  background-color: white;
+				  min-width: 160px;
+				  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				  z-index: 1;
+			}
+
+
+			.dropdown-menu ul {
+				list-style-type: none;
+			    margin: 0;
+			    padding: 0;
+			    overflow: hidden;
+			    background-color: white;
+			}	
+
+			.dropdown-menu li {
+			  	display: block;
+			}
+
+			.dropdown-menu li:last-child {
+			  	border-right: none;
+			}
+
+			.dropdown-menu li a {
+			  	color: black;
+			  	text-align: center;
+			  	padding: 14px 16px;
+			  	text-decoration: none;
+			}
+
+			.dropdown-menu a:hover:not(.active) {
+			  background-color: #111;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+		<nav id="main-nav">
+		 <!-- Sample menu definition -->
+		 <div class="main-menu">
+			 <ul class="ul-main-menu">
+				 <li><a href="https://uit.edu.vn">Home</a></li>
+				 <li><a href="https://uit.edu.vn">About</a></li>
+				 <li><a href="https://uit.edu.vn">Download</a></li>
+				 <li><a href="https://uit.edu.vn">Support</a></li>
+				 <li><a href="https://uit.edu.vn">Docs</a></li>
+				 <li id="dropdown">
+			 		<a href="#">Sub test</a>
+			 		<div class="dropdown-menu">
+			 			<ul class="ul-dropdown-menu">
+				 			 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#" class="disabled">Disabled menu item</a></li>
+							 <li><a href="#">Dummy item</a></li>
+							 <li><a href="#">more...</a>
+						</ul>
+			 		</div>
+				 </li>
+				 <li><a href="#">Mega menu</a></li>
+			</ul>
+		</div>
+		</nav>
+
+		<h4>Product</h4>
+
+		<h2>Danh sách sản phẩm</h2>
+		
+		<table id="myTable" style="width: 100%">
+		  <tr>
+		    <th>STT</th>
+		    <th>Tên sán phẩm</th>
+		    <th>Giá</th>
+		    <th style="width: 8%">Tình trạng</th>
+		    <th>Thương hiệu</th>
+		    <th>Thao tác</th>
+		  </tr>	
+		</table>
+	
+		<script type="text/javascript">
+			$(document).ready(function(){
+			$.ajax({
+		    url: "http://localhost:3000/file/",
+		    headers: {
+				'Content-Type': 'application/json; charset=utf-8'
+			},
+		    type:'GET',
+		    datatype:'json',
+		    success: function(result) {
+    			console.log(result);
+
+		    	$.each(result,function(index,item){ 
+			        $('#myTable').append(
+			            "<tr>" +
+			            "<td>" + item.id + "</td>" +
+			            "<td><img src='http://localhost:3000/uploads/image-1.png' alt='Computer'><p style='color:#c71313'><b>"+ item.title + "</b></p>"+ item.sumary +"</td>"+
+			            "<td><b>" + item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")   + " VNĐ" + "</b></td>" +
+			            "<td>" + item.number + "<br/>" + "<p id = 'statusProduct" + item.id + "'><b>(" + item.status + ")</b></p>" + "</td>" +
+			            "<td>" + item.producer + "</td>" +
+			            "<td><button id ='btnProduct" + item.id + "'>Thêm vào giỏ hàng</button></td>" +
+			            "</tr>"
+			        );
+			        if ( item.number == "0") {
+					    $("#btnProduct" + item.id).css({"background-color" : "red"});
+					    $("#statusProduct" + item.id).css({"color" : "red"});
+					    $("#btnProduct" + item.id).attr("disabled", true);
+					} else {
+						$("#btnProduct" + item.id).css({"background-color": "blue"});
+					}
+
+			    });
+			} 
+
+			});
+		    $( '#dropdown' ).hover(
+		        function(){
+		            $(this).children('.dropdown-menu').slideDown(200);
+		        },
+		        function(){
+		            $(this).children('.dropdown-menu').slideUp(200);
+		        }
+		    );
+
+			});    
+			</script>
+
+		</script>
+	</body>
+</html>
